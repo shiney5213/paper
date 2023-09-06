@@ -46,26 +46,41 @@
 
 ## code 분석
 ### 1. dataset 준비 및 car class data 추출 
- - py > utils > data > pascal_voc_cal.py 실행 
- - PASCAL_VOC_2012 dataset 이용
- - ImageSets > main> cat_trainval.txt를 읽어 class가 car인 데이터를 train/ val, xml/jpg 파일로 나누어 데이터셋 구축 
- - class가 car인 이미지만 추출
+- py > utils> data > pascal_voc.py 실행 (dataset download)
+- py > utils > data > pascal_voc_cal.py 실행 
+- PASCAL_VOC_2012 dataset 이용
+- ImageSets > main> cat_trainval.txt를 읽어 class가 car인 데이터를 train/ val, xml/jpg 파일로 나누어 데이터셋 구축 
+- class가 car인 이미지만 추출
 
-    | 구분 | train data  | val data |
+    | type | train   | val  |
     |:---:|:---:|:---:|
     |Annotations |  590  |  571   |
     | JPEGImages |  590  | 571  |
  
- ### 2. 모델 과정
- #### 1) selectivesearch
- - py > selectivesearch.py 실행
- - opencv에 구현된 cv2.ximgproc.segmentation.createSelectiveSearchSegmentation() 이용
- - 반환값: bounding box의 좌표값 array 반환
- - test image : lena.jpg
+### 2. 모델 과정
+#### 1) selectivesearch
+- py > selectivesearch.py 실행
+- opencv에 구현된 cv2.ximgproc.segmentation.createSelectiveSearchSegmentation() 이용
+- 반환값: bounding box의 좌표값 array 반환
+- test image : lena.jpg
 
- | 원본 이미지 | selectivesearch 이미지(초기 10개 box)|
+ | 원본 이미지 | selectivesearch 이미지(초기 20개 box)|
  |:---:|:---:|
- | <img src = "./image/lena.jpg" width = 250> | <img src = "./image/selectivesearch_lena.jpg" width = 250>  
+ | <img src = "./image/000012.jpg" width = 250> | <img src = "./image/000012_selectivesearch.jpg" width = 250>  
+
+- 000012.jpg 이미지에서 찾은 box: 4648개
+
+#### 2) finㄷ-tuning을 위한 annotation 데이터 생성
+- py > utils > data > create_finetune_data.py 실행
+- 이미지마다 selectivesearch로 찾은 predict box와 PASCAL_VOC dataset에 저장된 xml 파일의 Ground Truth를 비교하여 IoU가 0.5 이상이면 positive, 아니면 negative로 labeling
+    | type | train   | val  |
+    |:---:|:---:|:---:|
+    |positive |  66122  |  64040   |
+    | negative |  454839  | 407548  |
+- 상기 결과를 파일이름_0.csv, 파일이름_1.csv로 저장
+- 
+
+
 
 
 
