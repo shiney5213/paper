@@ -7,7 +7,7 @@
 *.csv
 *.txt
 
-./computer_vision/object_detection/data/
+./computer_vision/object_detection/data/*
 
 ### Images ###
 # JPEG
