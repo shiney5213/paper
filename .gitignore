@@ -14,7 +14,7 @@
 *.tar
 
 ### Images ###
-# *.JPEG
+# JPEG
 # *.jpeg
 *.jpe
 *.jif
