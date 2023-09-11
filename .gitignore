@@ -9,10 +9,13 @@
 
 ./computer_vision/object_detection/data/*
 
+
+*.zip
+*.tar
+
 ### Images ###
-# JPEG
-*.jpg
-*.jpeg
+# *.JPEG
+# *.jpeg
 *.jpe
 *.jif
 *.jfif
@@ -41,7 +44,7 @@
 *.webp
 
 # Portable Network Graphics
-*.png
+# *.png
 
 # Animated Portable Network Graphics
 *.apng
