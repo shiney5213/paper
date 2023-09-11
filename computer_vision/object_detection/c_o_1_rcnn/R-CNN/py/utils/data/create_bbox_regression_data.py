@@ -93,7 +93,7 @@ if __name__ == '__main__':
         else:
             print('-------- {} 不符合条件'.format(sample_name))
             
-        break
+        # break
 
     dst_csv_path = os.path.join(dst_root_dir, 'car.csv')
     np.savetxt(dst_csv_path, res_samples, fmt='%s', delimiter=' ')

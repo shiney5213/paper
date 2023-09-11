@@ -15,7 +15,7 @@ import torchvision.transforms as transforms
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 
-import utils.util as util
+from py.utils.util import parse_car_csv, iou
 
 
 class BBoxRegressionDataset(Dataset):
@@ -24,7 +24,10 @@ class BBoxRegressionDataset(Dataset):
         super(BBoxRegressionDataset, self).__init__()
         self.transform = transform
 
-        samples = util.parse_car_csv(root_dir)
+        print('root-dir', root_dir)
+        samples = parse_car_csv(root_dir)
+        print('samples', type(samples), samples[0])
+            #   len(samples))
         jpeg_list = list()
         # 保存{'image_id': ?, 'positive': ?, 'bndbox': ?}
         box_list = list()
@@ -66,7 +69,7 @@ class BBoxRegressionDataset(Dataset):
         if self.transform:
             image = self.transform(image)
 
-        # 计算P/G的x/y/w/h
+        # positive, gound_trush의 x/y/w/h
         target = dict()
         p_w = xmax - xmin
         p_h = ymax - ymin
@@ -102,7 +105,7 @@ class BBoxRegressionDataset(Dataset):
             # 只有一个标注边界框，直接返回即可
             return bndboxes
         else:
-            scores = util.iou(positive, bndboxes)
+            scores = iou(positive, bndboxes)
             return bndboxes[np.argmax(scores)]
 
 
@@ -122,6 +125,7 @@ def test():
     data_set = BBoxRegressionDataset(data_root_dir, transform=transform)
 
     print(data_set.__len__())
+    
     image, target = data_set.__getitem__(10)
     print(image.shape)
     print(target)
