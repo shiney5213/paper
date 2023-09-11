@@ -117,11 +117,14 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
 if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    data_loaders, data_sizes = load_data('./data/finetune_car')
+    # data_loaders, data_sizes = load_data('./data/finetune_car')
+    data_loaders, data_sizes = load_data('../../data/finetune_car')
+    
 
     model = models.alexnet(pretrained=True)
-    # print(model)
+    print('model', model)
     num_features = model.classifier[6].in_features
+    print('num_features', num_features)
     model.classifier[6] = nn.Linear(num_features, 2)
     # print(model)
     model = model.to(device)
