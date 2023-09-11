@@ -70,7 +70,7 @@
 
 - 000012.jpg 이미지에서 찾은 box: 4648개
 
-#### 2) fine-tuning을 위한 annotation 데이터 생성
+#### 2) finㄷ-tuning을 위한 annotation 데이터 생성
 - py > utils > data > create_finetune_data.py 실행
 - 이미지마다 selectivesearch로 찾은 predict box와 PASCAL_VOC dataset에 저장된 xml 파일의 Ground Truth를 비교하여 IoU가 0.5 이상이면 positive, 아니면 negative로 labeling
     | type | train   | val  |
@@ -78,13 +78,7 @@
     |positive |  66122  |  64040   |
     | negative |  454839  | 407548  |
 - 상기 결과를 파일이름_0.csv, 파일이름_1.csv로 저장
-
- | positive_label | negative_label|
- |:---:|:---:|
- | <img src = "./image/000012_positive.png" width = 250> | <img src = "./image/000012_negative.png" width = 250>  
-
-- 000012.jpg 이미지에서 selectivesearch한 4648개의 box중 IoU와 box area를 고려하여 positive 339개, negative 1116개 box를 선택
-
+- 
 
 
 
