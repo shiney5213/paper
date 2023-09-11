@@ -162,7 +162,10 @@
 
 >- 모델에 사용하기 위해 data type 정의
 
-#### 1) CNN모델을 fine_tuning하기 위한 custom dataset
+<details>
+<summary><span style="font-size:150%">1) CNN모델을 fine_tuning하기 위한 custom dataset</span> </summary>
+<div markdown="1">
+
 > - py > utils > data > custom_finetune_dataset.py 실행
 > - 원본 이미지를 하나의 list에 저장
 > - create_funetune_data.py에서 생성한 image annotation의 좌표값과 개수를 positive, negative로 나누어 각각 list에 저장
@@ -172,9 +175,68 @@
 > - total_box : 520961
 
 
+</div>
+</details>
+
+<details>
+<summary><span style="font-size:150%"> 2) Linear SVM을 학습하기 위한 classifier dataset 정의</span> </summary>
+<div markdown="1">
+
+> - py > utils > custom_classifier_dataset.py
+> - 3개의 test()함수
+    >> - test() : classifier_car/val 이미지와 positive, negative box coor 저장
+    >> - test2() : classifier_car/train 이미지와 positive, negative box coor 저장,  transform. Compose()를 이용하여 (227 * 227 )size로 wrap하고, tensot 형식으로 변환
+    >> - test3() : DataLoader를 이용해 batch_size 128, num_workers 8로 학습할 준비 , input size : [ 128, 3, 227, 227 ]
+    
+|type| positive_label | negative_label|
+|:---:|:---:|:---:|
+| 원본 |<img src = "./image/000012_custom_classifier_dataset_test22.png" width = 200> | <img src = "./image/000012_custom_classifier_dataset_test2_1.png" width = 200> |
+|227 * 227 | <img src = "./image/000012_custom_classifier_dataset_test2.png" width = 200> | <img src = "./image/000012_custom_classifier_dataset_test2_11.png" width = 200> |
+</div>
+</details>
+   
+
+<details>
+<summary><span style="font-size:150%"> 3) bbox regression을 학습하기 위한 dataset 정의</span> </summary>
+<div markdown="1">
+
+- py > utils > custom_bbox_regression_dataset.py
+- 이미지 box의 coor값이 아닌 positive, ground_truth의 값을 적절히 조절해서 t의 x, y, w, h값을 구해서 dataloader 형식으로 준비
 
 </div>
 </details>
+
+<details>
+<summary><span style="font-size:150%"> 4) 학습을 위한 batch sampler</span> </summary>
+<div markdown="1">
+
+- py > utils > data > custom_batch_sampler.py
+
+- positive, negative data(총 520961)를 mini batch(num_iter : 4070)로 구성한 뒤, suffle
+- positive batch : 32 / negative batch : 96
+
+</div>
+</details>
+
+</dic>
+</details>
+
+---
+
+<details>
+<summary><span style="font-size:150%"> 4. model train</span> </summary>
+<div markdown="1">
+
+
+<details>
+<summary><span style="font-size:150%"> 1) pre_trained 된 AlexNet Fine_tuning</span> </summary>
+<div markdown="1">
+- py > utils > finetune.py
+- 
+
+
+
+
 
  
 
