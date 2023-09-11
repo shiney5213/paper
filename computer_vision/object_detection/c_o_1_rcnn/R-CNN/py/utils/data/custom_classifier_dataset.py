@@ -2,7 +2,7 @@
 
 """
 @date: 2020/3/4 下午4:00
-@file: custom_classifier_dataset.py
+@file: custom_classifier_dataset.pyquit
 @author: zj
 @description: 分类器数据集类，可进行正负样本集替换，适用于hard negative mining操作
 """
@@ -14,9 +14,11 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
+import torchvision.transforms as ToPILmage
 
-rcnn_abspath = os.path.dirname(os.path.dirname( os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-sys.path.append(rcnn_abspath)
+
+# rcnn_abspath = os.path.dirname(os.path.dirname( os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# sys.path.append(rcnn_abspath)
 from py.utils.util import parse_car_csv
 
 
@@ -24,6 +26,7 @@ class CustomClassifierDataset(Dataset):
 
     def __init__(self, root_dir, transform=None):
         samples = parse_car_csv(root_dir)
+        print('samples', type(samples), samples[0])
 
         jpeg_images = list()
         positive_list = list()
@@ -34,7 +37,7 @@ class CustomClassifierDataset(Dataset):
 
             positive_annotation_path = os.path.join(root_dir, 'Annotations', sample_name + '_1.csv')
             positive_annotations = np.loadtxt(positive_annotation_path, dtype=np.int, delimiter=' ')
-            # 考虑csv文件为空或者仅包含单个标注框
+            # csv파일이 비어있거나, 값이 여러개인 경우
             if len(positive_annotations.shape) == 1:
                 # 单个标注框坐标
                 if positive_annotations.shape[0] == 4:
@@ -164,7 +167,7 @@ def test(idx):
     # cv2.waitKey(0)
 
 
-def test2():
+def test2(image_num):
     root_dir = '../../data/classifier_car/train'
     transform = transforms.Compose([
         transforms.ToPILImage(),
@@ -174,10 +177,25 @@ def test2():
     ])
 
     train_data_set = CustomClassifierDataset(root_dir, transform=transform)
-    image, target, cache_dict = train_data_set.__getitem__(230856)
+    image, target, cache_dict = train_data_set.__getitem__(image_num)
     print('target: %d' % target)
     print('dict: ' + str(cache_dict))
     print('image.shape: ' + str(image.shape))
+    # image = Image.fromarray(image)
+    # print(image)
+    print(type(image))
+    
+    tf = transforms.ToPILImage()
+    image = tf(image)
+    image.show()
+    
+    
+    # transform 되기 전 image
+    train_data_set = CustomClassifierDataset(root_dir)
+    image, target, cache_dict = train_data_set.__getitem__(image_num)
+    image = Image.fromarray(image)
+    image.show()
+    
 
 
 def test3():
@@ -195,11 +213,19 @@ def test3():
     inputs, targets, cache_dicts = next(data_loader.__iter__())
     print(targets)
     print(inputs.shape)
+    
+    image  = inputs[0]
+    print('image size', image.shape)
+    tf = transforms.ToPILImage()
+    image = tf(image)
+    image.show()
+    
 
 
 if __name__ == '__main__':
     # test(159622)
     # test(4051)
-    test(24768)
-    # test2()
+    image_num = 200
+    # test(image_num)
+    test2(image_num)
     # test3()
