@@ -12,7 +12,7 @@ import random
 from torch.utils.data import Sampler
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
-from utils.data.custom_finetune_dataset import CustomFinetuneDataset
+from py.utils.data.custom_finetune_dataset import CustomFinetuneDataset
 
 
 class CustomBatchSampler(Sampler):
@@ -32,10 +32,14 @@ class CustomBatchSampler(Sampler):
         self.batch_negative = batch_negative
 
         length = num_positive + num_negative
+        print('length', length)
         self.idx_list = list(range(length))
 
         self.batch = batch_negative + batch_positive
         self.num_iter = length // self.batch
+        print('self.batch', self.batch)
+        print('self.num_iter', self.num_iter)
+        
 
     def __iter__(self):
         sampler_list = list()
