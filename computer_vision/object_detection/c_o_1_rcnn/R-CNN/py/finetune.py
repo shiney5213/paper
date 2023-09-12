@@ -93,9 +93,20 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
 
             epoch_loss = running_loss / data_sizes[phase]
             epoch_acc = running_corrects.double() / data_sizes[phase]
+            
+            torch.save(
+                        {
+                        'epoch': epoch,
+                        'loss': epoch_loss,
+                        'model': model.state_dict(),
+                        'optimizer': optimizer.state_dict()
+                        },
+                        './models/alexnet_car_epoch.pth'
+                       )
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
+            
 
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
@@ -136,4 +147,6 @@ if __name__ == '__main__':
     best_model = train_model(data_loaders, model, criterion, optimizer, lr_scheduler, device=device, num_epochs=25)
     # 保存最好的模型参数
     check_dir('./models')
-    torch.save(best_model.state_dict(), 'models/alexnet_car.pth')
+    torch.save(best_model.state_dict(), './models/alexnet_car.pth')
+    
+    print('model save')
