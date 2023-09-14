@@ -86,6 +86,8 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
                         optimizer.step()
 
                 # statistics
+
+                
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
             if phase == 'train':
@@ -101,7 +103,7 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
                         'model': model.state_dict(),
                         'optimizer': optimizer.state_dict()
                         },
-                        './models/alexnet_car_epoch.pth'
+                        f'./models/alexnet_car_{epoch+1}.pt'
                        )
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
