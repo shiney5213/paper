@@ -7,6 +7,11 @@
 
 computer_vision/object_detection/data/*
 
+
+# model
+*.pt
+*.pth
+
 ### Images ###
 # JPEG
 #*.jpg
