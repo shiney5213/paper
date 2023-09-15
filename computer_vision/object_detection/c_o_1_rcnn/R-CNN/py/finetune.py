@@ -17,6 +17,7 @@ from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 import torchvision.models as models
 
+
 from utils.data.custom_finetune_dataset import CustomFinetuneDataset
 from utils.data.custom_batch_sampler import CustomBatchSampler
 from utils.util import check_dir
@@ -96,17 +97,14 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
             epoch_loss = running_loss / data_sizes[phase]
             epoch_acc = running_corrects.double() / data_sizes[phase]
             
-            torch.save(
-                        {
-                        'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict(),
-                        'loss': epoch_loss,
-                        'acc': epoch_acc
-                        },
-                        f'./models/alexnet_car_{epoch+1}.pt'
-                       )
-
+        
+            if phase == 'train':
+                train_loss = epoch_loss
+                train_acc = epoch_acc
+            else:
+                val_loss = epoch_loss
+                val_acc = epoch_acc
+                
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
             
@@ -115,8 +113,20 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_weights = copy.deepcopy(model.state_dict())
+                
+        torch.save(
+                    {
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'train_loss': train_loss,
+                    'val_loss': val_loss ,
+                    'train_acc': train_acc,
+                    'val_acc': val_acc
+                    },
+                    f'./models/alexnet_car_{epoch+1}.pt'
+                    )
 
-        print()
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
@@ -150,6 +160,6 @@ if __name__ == '__main__':
     best_model = train_model(data_loaders, model, criterion, optimizer, lr_scheduler, device=device, num_epochs=25)
     # 保存最好的模型参数
     check_dir('./models')
-    torch.save(best_model.state_dict(), './models/alexnet_car.pth')
+    torch.save(best_model.state_dict(), './models/alexnet_car.pt')
     
     print('model save')
