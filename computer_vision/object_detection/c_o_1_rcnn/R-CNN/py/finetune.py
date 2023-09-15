@@ -99,9 +99,10 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
             torch.save(
                         {
                         'epoch': epoch,
+                        'model_state_dict': model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
                         'loss': epoch_loss,
-                        'model': model.state_dict(),
-                        'optimizer': optimizer.state_dict()
+                        'acc': epoch_acc
                         },
                         f'./models/alexnet_car_{epoch+1}.pt'
                        )
