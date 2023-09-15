@@ -232,9 +232,11 @@
 <summary><span style="font-size:150%"> 1) pre_trained 된 AlexNet Fine_tuning</span> </summary>
 <div markdown="1">
 - py > utils > finetune.py
+
+- pretrained AlexNet의 마지막에 Fully Connectied layer 추가
+(출력되는 output unit = classes 수 + 1(배경)이므로, 이 코드에서는 자동차에 대한 분류만 진행하므로 output unit 수 = 2)
 - 
-
-
+<img src = "./image/4.CNN_model_structure.png" width = 500> 
 
 
 
