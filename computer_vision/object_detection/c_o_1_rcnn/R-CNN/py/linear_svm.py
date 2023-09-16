@@ -178,6 +178,13 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
+            if phase == train:
+                train_loss = epoch_loss
+                train_acc = epoch_acc
+            else:
+                val_loss = epoch_loss
+                val_acc = epoch_acc
+                
 
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
@@ -219,6 +226,11 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
 
             remain_acc = running_corrects.double() / len(remain_negative_list)
             print('remiam negative size: {}, acc: {:.4f}'.format(len(remain_negative_list), remain_acc))
+            
+            remain_negative_size = len(remain_negative_list)
+            remain_acc = remain_acc
+            
+            
 
             # 训练完成后，重置负样本，进行hard negatives mining
             train_dataset.set_negative_list(negative_list)
@@ -229,9 +241,25 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
             data_loaders['add_negative'] = add_negative_list
             # 重置数据集大小
             data_sizes['train'] = len(tmp_sampler)
+            
+            torch.save(
+                    {
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'train_loss': train_loss,
+                    'val_loss': val_loss ,
+                    'train_acc': train_acc,
+                    'val_acc': val_acc,
+                    'remain_negative_size' : remain_negative_size,
+                    'remain_acc' : remain_acc
+                    
+                    },
+                    f'./models/alexnet_car_{epoch+1}.pt'
+                    )
 
         # 每训练一轮就保存
-        save_model(model, 'models/linear_svm_alexnet_car_%d.pth' % epoch)
+        save_model(model, './models/linear_svm_alexnet_car_%d.pth' % epoch)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
@@ -247,10 +275,13 @@ if __name__ == '__main__':
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     # device = 'cpu'
 
-    data_loaders, data_sizes = load_data('./data/classifier_car')
+    data_path = '../../data/classifier_car'
+    print('data_load',os.path.isfile(data_path))
+    
+    data_loaders, data_sizes = load_data(data_path)
 
     # 加载CNN模型
-    model_path = './models/alexnet_car.pth'
+    model_path = './models/alexnet_car.pt'
     model = alexnet()
     num_classes = 2
     num_features = model.classifier[6].in_features
@@ -273,4 +304,4 @@ if __name__ == '__main__':
 
     best_model = train_model(data_loaders, model, criterion, optimizer, lr_schduler, num_epochs=10, device=device)
     # 保存最好的模型参数
-    save_model(best_model, 'models/best_linear_svm_alexnet_car.pth')
+    save_model(best_model, './models/best_linear_svm_alexnet_car.pt')
