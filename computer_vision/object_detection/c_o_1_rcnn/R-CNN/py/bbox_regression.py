@@ -75,7 +75,17 @@ def train_model(data_loader, feature_model, model, criterion, optimizer, lr_sche
         print('{} Loss: {:.4f}'.format(epoch, epoch_loss))
 
         # 每训练一轮就保存
-        util.save_model(model, './models/bbox_regression_%d.pth' % epoch)
+        # util.save_model(model, './models/bbox_regression_%d.pth' % epoch)
+        torch.save(
+                    {
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'loss': epoch_loss,
+                    },
+                    f'./models/bbox_regression/bbox_regression_{epoch+1}.pt'
+                    )
+        
 
     print()
 
@@ -88,7 +98,7 @@ def train_model(data_loader, feature_model, model, criterion, optimizer, lr_sche
 def get_model(device=None):
     # 加载CNN模型
     model = AlexNet(num_classes=2)
-    model.load_state_dict(torch.load('./models/best_linear_svm_alexnet_car.pth'))
+    model.load_state_dict(torch.load('./models/linear_svm/best_linear_svm_alexnet_car.pt'))
     model.eval()
 
     # 取消梯度追踪
@@ -101,7 +111,7 @@ def get_model(device=None):
 
 
 if __name__ == '__main__':
-    data_loader = load_data('./data/bbox_regression')
+    data_loader = load_data('../../data/bbox_regression')
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     feature_model = get_model(device)
