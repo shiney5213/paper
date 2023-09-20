@@ -11,6 +11,7 @@ import time
 import copy
 import os
 import random
+from tqdm import tqdm
 import numpy as np
 import torch
 import torch.nn as nn
@@ -126,7 +127,7 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
     best_model_weights = copy.deepcopy(model.state_dict())
     best_acc = 0.0
 
-    for epoch in range(num_epochs):
+    for epoch in tqdm(range(num_epochs)):
 
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
@@ -178,7 +179,7 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
-            if phase == train:
+            if phase == 'train':
                 train_loss = epoch_loss
                 train_acc = epoch_acc
             else:
@@ -241,25 +242,25 @@ def train_model(data_loaders, model, criterion, optimizer, lr_scheduler, num_epo
             data_loaders['add_negative'] = add_negative_list
             # 重置数据集大小
             data_sizes['train'] = len(tmp_sampler)
-            
-            torch.save(
-                    {
-                    'epoch': epoch,
-                    'model_state_dict': model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'train_loss': train_loss,
-                    'val_loss': val_loss ,
-                    'train_acc': train_acc,
-                    'val_acc': val_acc,
-                    'remain_negative_size' : remain_negative_size,
-                    'remain_acc' : remain_acc
-                    
-                    },
-                    f'./models/alexnet_car_{epoch+1}.pt'
-                    )
-
+        
         # 每训练一轮就保存
-        save_model(model, './models/linear_svm_alexnet_car_%d.pth' % epoch)
+        torch.save(
+                {
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'train_loss': train_loss,
+                'val_loss': val_loss ,
+                'train_acc': train_acc,
+                'val_acc': val_acc,
+                'remain_negative_size' : remain_negative_size,
+                'remain_acc' : remain_acc
+                
+                },
+                f'./models/linear_svm/linear_svm_alexnet_car_{epoch+1}.pt'
+                )
+
+        save_model(model, './models/linear_svm/linear_svm_alexnet_car_%d.pth' % epoch)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
@@ -280,18 +281,19 @@ if __name__ == '__main__':
     
     data_loaders, data_sizes = load_data(data_path)
 
-    # 加载CNN模型
-    model_path = './models/alexnet_car.pt'
+    # CNN 모델 로드
+    model_path = './models/cnn_finetune/alexnet_car.pt'
     model = alexnet()
     num_classes = 2
     num_features = model.classifier[6].in_features
     model.classifier[6] = nn.Linear(num_features, num_classes)
     model.load_state_dict(torch.load(model_path))
     model.eval()
-    # 固定特征提取
+    # 
     for param in model.parameters():
         param.requires_grad = False
-    # 创建SVM分类器
+        
+    # SVM 분류기 생성
     model.classifier[6] = nn.Linear(num_features, num_classes)
     # print(model)
     model = model.to(device)
@@ -304,4 +306,4 @@ if __name__ == '__main__':
 
     best_model = train_model(data_loaders, model, criterion, optimizer, lr_schduler, num_epochs=10, device=device)
     # 保存最好的模型参数
-    save_model(best_model, './models/best_linear_svm_alexnet_car.pt')
+    save_model(best_model, './models/linear_svm/best_linear_svm_alexnet_car.pt')
