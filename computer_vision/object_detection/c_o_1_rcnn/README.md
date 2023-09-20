@@ -239,7 +239,7 @@
  
 - model structure 
 
-<img src = "./image/4.CNN_model_structure.png" width = 500> 
+<img src = "./image/4.cnn_model_structure.png" width = 500> 
 
 - loss function: CrossEntoropyLoss
 - optimiser : SGD
@@ -254,7 +254,7 @@
 
 |accuracy|loss|
 :---:|:---:|
-|<img src="./image/4.CNN_model_acc_graph.png" width = 200>| <img src="./image/4.CNN_model_loss_graph.png" width = 200>|
+|<img src="./image/4.cnn_model_acc_graph.png" width = 200>| <img src="./image/4.cnn_model_loss_graph.png" width = 200>|
 
 
 </div>
