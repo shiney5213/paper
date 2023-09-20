@@ -299,18 +299,30 @@
 - finetuned AlexNet의 마지막 layer에 fully conneted layer(num of nuit = 4)를 추가
 
 - loss function : MSE(Mean Squred Error)
-- optimizer: Adam 
+- optimizer: Adam
 - parameter
 
 | learning rate | weight_decay | epoch |
 |:---:|:---:|:---:|
 ||1e-4|1e-4|12|
 
-- accuracy, loss
+-  loss
 
-|accuracy|loss|
-:---:|:---:|
-|<img src="./image/6.linear_svm_acc_graph.png" width = 200>| <img src="./image/6.linear_svm_loss_graph.png" width = 200>|
+|<img src="./image/7.bbox_regression_loss_graph.png" width = 200>
+
+
+</dic>
+</details>
+
+<details>
+<summary><span style="font-size:150%"> 5. object detection  </span> </summary>
+<div markdown="1">
+
+- py > utils > car_detector.py
+
+- Non maximum suppression 알고리즘
+
+
 
 
 
