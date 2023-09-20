@@ -116,8 +116,8 @@ if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     feature_model = get_model(device)
 
-    # AlexNet最后一个池化层计算得到256*6*6输出
-    in_features = 256 * 6 * 6
+    # AlexNet의 마지막 풀링 레이어: 256*6*6의 출력
+    in_features = 256 * 6 * 6       # 9216
     out_features = 4
     model = nn.Linear(in_features, out_features)
     model.to(device)
