@@ -231,12 +231,86 @@
 <details>
 <summary><span style="font-size:150%"> 1) pre_trained 된 AlexNet Fine_tuning</span> </summary>
 <div markdown="1">
+
 - py > utils > finetune.py
 
 - pretrained AlexNet의 마지막에 Fully Connectied layer 추가
 (출력되는 output unit = classes 수 + 1(배경)이므로, 이 코드에서는 자동차에 대한 분류만 진행하므로 output unit 수 = 2)
-- 
+ 
+- model structure 
+
 <img src = "./image/4.CNN_model_structure.png" width = 500> 
+
+- loss function: CrossEntoropyLoss
+- optimiser : SGD
+- parameter
+
+| learning rate | momentum | epoch |
+|:---:|:---:|:---:|
+||1e-3|0.9|25|
+
+- best val accuracy : 0.873293
+- accuracy, loss
+
+|accuracy|loss|
+:---:|:---:|
+|<img src="./image/4.CNN_model_acc_graph.png" width = 200>| <img src="./image/4.CNN_model_loss_graph.png" width = 200>|
+
+
+</div>
+</details>
+
+<details>
+<summary><span style="font-size:150%"> 2)liear SVM  </span> </summary>
+<div markdown="1">
+
+- py > utils > linear_svm.py
+
+- finetuing한 AlexNet모델의 마지막 layer를 학습시켜 object(positive)인지 background(netative)인지 classification 진행
+
+- Hard Negative Mining
+    - 학습 데이터의 class: positive(object), negative(background)
+    - 클래스 불균형(positive data < negative data)이므로 균형있게 학습하기 위해 positive sample과 negative sample의 비율을 1:1로 맞춰 학습 
+    - 남은 negative sample을 linear SVM 모델에서 한번 더 학습
+
+- Hing loss function
+    - 최대 마진 분류를 외한 SVM에 사용하는 loss function
+- parameter
+| learning rate | momentum | epoch |
+|:---:|:---:|:---:|
+||1e-4|0.9|10|
+
+-  accuracy, loss 
+
+|accuracy|loss|
+:---:|:---:|
+|<img src="./image/6.linear_svm_acc_graph.png" width = 200>| <img src="./image/6.linear_svm_loss_graph.png" width = 200>|
+
+</div>
+</details>
+
+
+<details>
+<summary><span style="font-size:150%"> 3)box regressor  </span> </summary>
+<div markdown="1">
+
+- py > utils >  bbox_regression.py
+
+- finetuned AlexNet의 마지막 layer에 fully conneted layer(num of nuit = 4)를 추가
+
+- loss function : MSE(Mean Squred Error)
+- optimizer: Adam 
+- parameter
+
+| learning rate | weight_decay | epoch |
+|:---:|:---:|:---:|
+||1e-4|1e-4|12|
+
+- accuracy, loss
+
+|accuracy|loss|
+:---:|:---:|
+|<img src="./image/6.linear_svm_acc_graph.png" width = 200>| <img src="./image/6.linear_svm_loss_graph.png" width = 200>|
 
 
 
