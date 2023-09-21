@@ -321,12 +321,7 @@
 
 ---
 
-
-
-<details>
-<summary><span style="font-size:150%"> Ⅲ. object detection  </span> </summary>
-<div markdown="1">
-
+## Ⅲ. object detection
 
 - py > utils > car_detector.py
 
@@ -355,10 +350,6 @@
 |:---:|:---:|:---:|:---:|
 |img|<img src="./image/6.nms_0.74375635.png" width = 200>| <img src="./image/6.nms_0.70.png" width = 200>|<img src="./image/6.nms_0.66871464.png" width = 200>|
 |prob|0.74|0.70|0.67|
-
-
-</div>
-</details>
 
 
 </div>
