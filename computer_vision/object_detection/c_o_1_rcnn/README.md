@@ -335,8 +335,8 @@
 
 ||result1|result2| result3|
 |:---:|:---:|:---:|:---:|
-|img|<img src="./image/6.nms_0.74375635.png" width = 200>| <img src="./image/6.nms_0.69199574.png" width = 200>|<img src="./image/6.nms_0.67.png" width = 200>|
-|prob|0.74|0.69|0.67|
+|img|<img src="./image/6.nms_0.74375635.png" width = 200>| <img src="./image/6.nms_0.70.png" width = 200>|<img src="./image/6.nms_0.66871464.png" width = 200>|
+|prob|0.74|0.70|0.67|
 
 
 </div>
@@ -346,25 +346,8 @@
 
 
 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 [참고]
-- [Pytorch로 구현한 R-CNN 모델](https://herbwood.tistory.com/6)             
+- [Pytorch로 구현한 R-CNN 모델](https://herbwood.tistory.com/6)        
+-      
 
