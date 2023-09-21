@@ -110,7 +110,7 @@
 </div>
 </details>
 
-</div>
+
 <details>
 <summary><span style="font-size:120%">2) Linear SVM을 학습하기 위한 dataset</span> </summary>
 <div markdown="1">
@@ -152,6 +152,9 @@
 
 </div>
 </details>
+
+
+</div>
 </details>
 
 ---
@@ -218,7 +221,7 @@
 </div>
 </details>
 
-</dic>
+</div>
 </details>
 
 ---
@@ -309,6 +312,9 @@
 -  loss
 
 <img src="./image/4.bbox_regression_loss_graph.png" width = 200>
+
+</div>
+</details>
 
 </div>
 </details>
