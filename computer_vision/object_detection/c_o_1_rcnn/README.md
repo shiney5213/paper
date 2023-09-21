@@ -1,7 +1,7 @@
 # RCNN
 
 
-## 개요
+### 개요
 - paper :  [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)
 - insight
     1. high-capacity CNN을  bottom-up방법으로  resion 제안에 적용하기 
@@ -10,11 +10,11 @@
     -> 데이터를 그냥 사용했을 때와 비교해보기
 
 ---
-## code reference 
+### code reference 
 - [object-detection-algorithm/ R-CNN](https://github.com/object-detection-algorithm/R-CNN/)
 
 ---
-## Ⅰ.  code 구성
+### Ⅰ.  code 구성
 <details>
 <summary>code 구성</summary>
 <div markdown="1">
@@ -50,7 +50,7 @@
 
 
 
-## Ⅱ. code 분석
+### Ⅱ. code 분석
 <details>
 <summary><span style="font-size:150%">1. dataset 준비 및 car class data 추출</span> </summary>
 <div markdown="1">
@@ -321,7 +321,7 @@
 
 
 
-## Ⅲ. object detection
+### Ⅲ. object detection
 
 - py > utils > car_detector.py
 
