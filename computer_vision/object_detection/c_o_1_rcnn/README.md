@@ -13,7 +13,7 @@
 ## code reference 
 - [object-detection-algorithm/ R-CNN](https://github.com/object-detection-algorithm/R-CNN/)
 
-
+---
 ## Ⅰ.  code 구성
 <details>
 <summary>code 구성</summary>
@@ -69,7 +69,7 @@
 </div>
 </details>
 
----
+
 <details>
 <summary><span style="font-size:150%">2. dataset 생성 및 저장</span> </summary>
 <div markdown="1">
@@ -157,7 +157,7 @@
 </div>
 </details>
 
----
+
 
 <details>
 <summary><span style="font-size:150%">3. custom dataset 정의</span> </summary>
@@ -224,7 +224,7 @@
 </div>
 </details>
 
----
+
 
 <details>
 <summary><span style="font-size:150%"> 4. model train</span> </summary>
