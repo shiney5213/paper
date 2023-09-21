@@ -185,7 +185,7 @@
 > - py > utils > custom_classifier_dataset.py
 > - 3개의 test()함수
     >> - test() : classifier_car/val 이미지와 positive, negative box coor 저장
-    >> - test2() : classifier_car/train 이미지와 positive, negative box coor 저장,  transform. Compose()를 이용하여 (227 * 227 )size로 wrap하고, tensot 형식으로 변환
+    >> - test2() : classifier_car/train 이미지와 positive, negative box coor 저장,  transform. Compose()를 이용하여 (227 * 227 )size로 wrap하고, tensor 형식으로 변환
     >> - test3() : DataLoader를 이용해 batch_size 128, num_workers 8로 학습할 준비 , input size : [ 128, 3, 227, 227 ]
     
 |type| positive_label | negative_label|
@@ -284,7 +284,7 @@
 
 |accuracy|loss|
 :---:|:---:|
-|<img src="./image/6.linear_svm_acc_graph.png" width = 200>| <img src="./image/6.linear_svm_loss_graph.png" width = 200>|
+|<img src="./image/4.linear_svm_acc_graph.png" width = 200>| <img src="./image/4.linear_svm_loss_graph.png" width = 200>|
 
 </div>
 </details>
@@ -308,10 +308,9 @@
 
 -  loss
 
-|<img src="./image/7.bbox_regression_loss_graph.png" width = 200>
+|<img src="./image/4.bbox_regression_loss_graph.png" width = 200>
 
-
-</dic>
+</div>
 </details>
 
 <details>
@@ -321,6 +320,28 @@
 - py > utils > car_detector.py
 
 - Non maximum suppression 알고리즘
+
+1) data preprocession
+- input image에서 selective search로 찾은 bbox를 (227, 227) 크기로 wrapping
+
+|input image|selective search image| wrap image|
+:---:|:---:|:---:|
+|<img src="./image/5.input_img.jpg" width = 200>| <img src="./image/5.selectivesearch.png" width = 200>|<img src="./image/6.wrap_img.png" width = 200>|
+
+2) model and result
+- selectivesearch로 찾은 2306개 중 model output의 결과 positive가 높은 box를 찾고
+  그 중에서 svm threshold(0.3) 이상인 box 34개를 찾음
+- Non maximum suppression을 적용해서, positive 확률이 가장 큰 값을 가진 box와 나머지 box와의 iOU값을 계산해서  0.3이상인 box 19개를 찾음
+
+||result1|result2| result3|
+|:---:|:---:|:---:|:---:|
+|img|<img src="./image/6.nms_0.74375635.png" width = 200>| <img src="./image/6.nms_0.69199574.png" width = 200>|<img src="./image/6.nms_0.67.png" width = 200>|
+|prob|0.74|0.69|0.67|
+
+
+</div>
+</details>
+
 
 
 
