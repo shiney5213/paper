@@ -48,6 +48,8 @@ if __name__ == '__main__':
 
     # img = cv2.imread('./data/lena.jpg', cv2.IMREAD_COLOR)
     img = cv2.imread('./imgs/000012.jpg', cv2.IMREAD_COLOR)
+    img = cv2.imread('./imgs/000007.jpg', cv2.IMREAD_COLOR)
+    
     
     config(gs, img, strategy='q')
 
@@ -60,7 +62,7 @@ if __name__ == '__main__':
     
     img_selectivesearch = img.copy()
     for i, rect in enumerate(rects):
-        if i <= 20:
+        if i <= 5:
             cv2.rectangle(img_selectivesearch,
                         (rect[0], rect[2]) ,
                         (rect[1], rect[3]),
