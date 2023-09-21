@@ -308,27 +308,39 @@
 
 -  loss
 
-|<img src="./image/4.bbox_regression_loss_graph.png" width = 200>
+<img src="./image/4.bbox_regression_loss_graph.png" width = 200>
 
 </div>
 </details>
+
+---
+
+
 
 <details>
 <summary><span style="font-size:150%"> 5. object detection  </span> </summary>
 <div markdown="1">
 
+
 - py > utils > car_detector.py
 
-- Non maximum suppression 알고리즘
+<details>
+<summary><span style="font-size:150%"> 1) data preprocession  </span> </summary>
+<div markdown="1">
 
-1) data preprocession
 - input image에서 selective search로 찾은 bbox를 (227, 227) 크기로 wrapping
 
 |input image|selective search image| wrap image|
 :---:|:---:|:---:|
 |<img src="./image/5.input_img.jpg" width = 200>| <img src="./image/5.selectivesearch.png" width = 200>|<img src="./image/6.wrap_img.png" width = 200>|
+</div>
+</details>
 
-2) model and result
+<details>
+<summary><span style="font-size:150%">2) model and result  </span> </summary>
+<div markdown="1">
+
+
 - selectivesearch로 찾은 2306개 중 model output의 결과 positive가 높은 box를 찾고
   그 중에서 svm threshold(0.3) 이상인 box 34개를 찾음
 - Non maximum suppression을 적용해서, positive 확률이 가장 큰 값을 가진 box와 나머지 box와의 iOU값을 계산해서  0.3이상인 box 19개를 찾음
@@ -343,11 +355,17 @@
 </details>
 
 
+</div>
+</details>
 
 
+
+
+<br>
+<br>
 
 ---
-[참고]
+[Reference]
 - [Pytorch로 구현한 R-CNN 모델](https://herbwood.tistory.com/6)        
 -      
 
