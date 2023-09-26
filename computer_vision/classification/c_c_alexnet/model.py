@@ -1,4 +1,4 @@
-
+# https://github.com/pytorch/vision/blob/main/torchvision/models/alexnet.py#L36
 import torch
 import torch.nn as nn
 
