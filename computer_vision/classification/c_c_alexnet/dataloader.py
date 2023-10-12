@@ -1,3 +1,5 @@
+# dataset download: https://academictorrents.com/collection/imagenet-2012
+
 from torchvision import datasets 
 from torchvision import transforms
 from torch.utils import data
@@ -31,9 +33,10 @@ def dataloader():
                                 shuffle = True,
                                 pin_memory = True,
                                 num_workers = 8,
-                                drop_last = True,
+                                drop_last = True,      # 남은 data 삭제
                                 batch_size= BATCH_SIZE
                                 )
+    print('Dataloader created')
     
     return dataloader
 
