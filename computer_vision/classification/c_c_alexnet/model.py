@@ -7,12 +7,12 @@ from torch import nn
 
 class AlexNet(nn.Module):
     """_summary_
-    neural network model consisting oflayers propsed by AlexNet paper
+    Neural network model consisting oflayers propsed by AlexNet paper
     """
     def __init__(self, num_classes: int = 1000, dropout: float = 0.5) -> None:
         # _log_api_usage_once(self)
         """
-        Define and allocate lyaers for this neural ent.
+        Define and allocate layers for this neural net.
 
         Args:
             num_classes (int, optional): _description_. Defaults to 1000.
@@ -72,6 +72,7 @@ class AlexNet(nn.Module):
                 nn.init.normal_(layer.weight, mean = 0, std = 0.01)
                 nn.init.constant_(layer.bias, 0)
                 
+            # original papaer = 1 for Conv2d layers 2nd, 4th and 5th conv layers
             nn.init.constant_(self.net[4].bias, 1)
             nn.init.constant_(self.net[10].bias, 1)
             nn.init.constant_(self.net[12].bias, 1)
