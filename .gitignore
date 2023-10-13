@@ -6,6 +6,7 @@
 *.csv
 
 computer_vision/object_detection/data/*
+computer_vision/classification/c_c_alexnet_data_in/*
 
 
 # model
