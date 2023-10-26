@@ -323,11 +323,11 @@
 
 ### Ⅲ. object detection
 
-- py > utils > car_detector.py
 
 <details>
 <summary><span style="font-size:150%"> 1. data preprocession  </span> </summary>
 <div markdown="1">
+- py > utils > car_detector.py
 
 - input image에서 selective search로 찾은 bbox를 (227, 227) 크기로 wrapping
 
