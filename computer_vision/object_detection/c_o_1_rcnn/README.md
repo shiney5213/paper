@@ -5,10 +5,7 @@
 - paper :  [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)
 - insight
     1. high-capacity CNN을  bottom-up방법으로  resion 제안에 적용하기 
-    -> 코드 살펴보기
     2. superviesd pre-training/ domain-specific finetunig paradigm으로 data 부족문제에 효과적
-    -> 데이터를 그냥 사용했을 때와 비교해보기
-
 ---
 ### code reference 
 - [object-detection-algorithm/ R-CNN](https://github.com/object-detection-algorithm/R-CNN/)
