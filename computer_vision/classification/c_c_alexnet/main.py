@@ -1,11 +1,13 @@
 import os
+import random
+import numpy as np
 import torch
 from tensorboardX import SummaryWriter
 import torch.optim as optim
 import torch.nn.functional as F
 
 from model import AlexNet
-from dataloader import dataloader
+from dataloader import dataloader, datapreparation
 # from train import train_one_epoch
 
 # define pytorch devies - useful for device-agnostic execution
@@ -24,12 +26,16 @@ NUM_CLASSES = 1000  # 1000 classes for imagenet 2012 dataset
 DEVICE_IDS = [0]  # GPUs to use
 
 
+print('my location', os.getcwd())
 # modify this to point to your data directory
-INPUT_ROOT_DIR = 'alexnet_data_in'
-TRAIN_IMG_DIR = 'alexnet_data_in/imagenet'
-OUTPUT_DIR = 'alexnet_data_out'
+INPUT_ROOT_DIR = './classification/c_c_alexnet/'
+TRAIN_IMG_DIR = os.path.join(INPUT_ROOT_DIR, 'alexnet_data_in/stanford-dog-dataset/images')
+TRAIN_ANNO_DIR =  os.path.join(INPUT_ROOT_DIR, 'alexnet_data_in/stanford-dog-dataset/annotations')
+# .replace('\\', '/')
+OUTPUT_DIR =  os.path.join(INPUT_ROOT_DIR, 'alexnet_data_out/standofd-dog-datset')
 LOG_DIR = OUTPUT_DIR + '/tblogs'  # tensorboard logs
 CHECKPOINT_DIR = OUTPUT_DIR + '/models'  # model checkpoints
+
 
 
 # make checkpoint path directory
@@ -42,6 +48,15 @@ if __name__ == '__main__':
     seed = torch.initial_seed()
     print('seed: {}'.format(seed))
     
+    # seed setting : REPRODUCIBILITY
+    seed = 42
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.cuda.manual_seed(seed)
+    # deterministic algorithms으로 구성
+    torch.backends.cudnn.deterministic = True
+    
+    
     # log writer
     tbwriter = SummaryWriter(log_dir = LOG_DIR)
     print('TensorboardX summary writer created')
@@ -53,10 +68,12 @@ if __name__ == '__main__':
     alexnet = torch.nn.parallel.DataParallel(alexnet, device_ids = DEVICE_IDS)
     print('AlexNet created')
     print(alexnet)
+
     
 
     # create Dataset and Data Loader
-    train_dataloader = dataloader()
+    datapreparation(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
+    train_dataloader = dataloader(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
     print('dataloader', train_dataloader)
     
     
