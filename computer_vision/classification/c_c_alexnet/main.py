@@ -7,7 +7,9 @@ import torch.optim as optim
 import torch.nn.functional as F
 
 from model import AlexNet
-from dataloader import dataloader, datapreparation
+from dataloader import dataloader
+from datapreprocessing import data_preparation
+from dataset import prepare_dataset
 # from train import train_one_epoch
 
 # define pytorch devies - useful for device-agnostic execution
@@ -72,7 +74,7 @@ if __name__ == '__main__':
     
 
     # create Dataset and Data Loader
-    datapreparation(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
+    classes, path_label_df = prepare_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
     train_dataloader = dataloader(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
     print('dataloader', train_dataloader)
     
