@@ -11,6 +11,7 @@ computer_vision/object_detection/data/*
 # classification
 computer_vision/classification/c_c_alexnet/alexnet_data_in/*
 computer_vision/classification/c_c_alexnet/alexnet_data_out/standofd-dog-dataset/tblogs/*
+computer_vision/classification/c_c_alexnet/alexnet_data_out/*
 
 # model
 *.pt
