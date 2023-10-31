@@ -7,9 +7,8 @@ import torch.optim as optim
 import torch.nn.functional as F
 
 from model import AlexNet
-from dataloader import dataloader
-from datapreprocessing import data_preparation
-from dataset import prepare_dataset
+from dataloader import dataloader, loader
+from dataset import prepare_dataset, get_dataset
 # from train import train_one_epoch
 
 # define pytorch devies - useful for device-agnostic execution
@@ -64,20 +63,31 @@ if __name__ == '__main__':
     print('TensorboardX summary writer created')
     
     
-    # create Model
+   
+    
+
+    # create Dataset and Data Loader
+    classes, path_label_df, label_num_df  = prepare_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
+    train_X, val_X, test_X, train_y, val_y, test_y = get_dataset(path_label_df)
+    is_show = True
+    is_show = False
+    idx = 1
+    train_dataloader = loader(TRAIN_IMG_DIR, train_X, train_y, is_show, idx, batch_size = BATCH_SIZE, obj = 'train')
+    raise ValueError
+    
+    
+    
+    
+    train_dataloader = dataloader(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
+    print('dataloader', train_dataloader)
+    
+     # create Model
     alexnet = AlexNet(num_classes = NUM_CLASSES).to(device)
     # train in multiple GPUs
     alexnet = torch.nn.parallel.DataParallel(alexnet, device_ids = DEVICE_IDS)
     print('AlexNet created')
     print(alexnet)
 
-    
-
-    # create Dataset and Data Loader
-    classes, path_label_df = prepare_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
-    train_dataloader = dataloader(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
-    print('dataloader', train_dataloader)
-    
     
     # create optimizer
     # optimizer = optim.Adam(params = alexnet.parameters(),
