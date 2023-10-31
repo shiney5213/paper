@@ -4,14 +4,19 @@ import os
 import pandas as pd
 from torchvision import datasets 
 from torchvision import transforms
-from torch.utils import data
+from torch.utils.data import DataLoader
 from albumentations import RandomCrop, HorizontalFlip, CenterCrop, Compose, Normalize
 from albumentations.pytorch.transforms import ToTensor
 
+from datapreprocessing import  augmentation1, augmentation2
+from dataset import prepare_dataset, StanfordDogs
 
-TRAIN_IMG_DIR = './alexnet_data_in/imagenet'
-IMAGE_DIM = 256
-# IMAGE_DIM = 224
+
+
+
+TRAIN_IMG_DIR = './alexnet_data_in/stanford-dog-dataset/images'
+IMAGE_TRAIN_DIM = 256
+IMAGE_TEST_DIM = 224
 BATCH_SIZE = 128
 
 
@@ -45,7 +50,20 @@ def dataloader(TRAIN_IMG_DIR, TRAIN_ANNO_DIR):
     
     return dataloader
 
-
-
+def loader(TRAIN_IMG_DIR, data_X, data_y, is_show, idx, batch_size = BATCH_SIZE, obj = 'train'):
+    train_aug = augmentation1()
+    test_aug = augmentation2()
+    
+    if is_show:
+        stanforddogs =  StanfordDogs( data_X, data_y, TRAIN_IMG_DIR, obj, is_show = True)
+        stanforddogs.__getitem__(idx)
+        
+    else:
+        data = StanfordDogs(train_aug, test_aug, data_X, data_y, TRAIN_IMG_DIR, obj, is_show)
+        print('data', type(data))
+        loader = DataLoader(data, batch_size = BATCH_SIZE, shuffle = True)
+    
+        return loader
+              
 
 
