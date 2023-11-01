@@ -37,8 +37,6 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 
     <img src = "./images/1.dataset_y_onehot.png" width = 250>
 
-
-
 </div>
 </details>
 
@@ -55,7 +53,10 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
     ② PCA Color Augmentation
         -  데이터의 50%만 수행
 
-
+|ordinary |resize|centercrop|horizontal flip|augmentation|
+    |:---:|:---:|:---:|:---:|:---:|:---:|
+    |img||
+    |size|
 
 </div>
 </details>
