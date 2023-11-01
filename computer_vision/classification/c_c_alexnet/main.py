@@ -1,6 +1,7 @@
 import os
 import random
 import numpy as np
+import cv2
 import torch
 from tensorboardX import SummaryWriter
 import torch.optim as optim
@@ -9,6 +10,7 @@ import torch.nn.functional as F
 from model import AlexNet
 from dataloader import dataloader, loader
 from dataset import prepare_dataset, get_dataset
+
 # from train import train_one_epoch
 
 # define pytorch devies - useful for device-agnostic execution
@@ -70,17 +72,17 @@ if __name__ == '__main__':
     classes, path_label_df, label_num_df  = prepare_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
     train_X, val_X, test_X, train_y, val_y, test_y = get_dataset(path_label_df)
     is_show = True
-    is_show = False
-    idx = 1
+    # is_show = False
+    idx = 5
     train_dataloader = loader(TRAIN_IMG_DIR, train_X, train_y, is_show, idx, batch_size = BATCH_SIZE, obj = 'train')
+    print('train_dataloader', type(train_dataloader))
+    
+    for batch in train_dataloader:
+        img, label = batch
+        print(len(img))
+        
     raise ValueError
-    
-    
-    
-    
-    train_dataloader = dataloader(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
-    print('dataloader', train_dataloader)
-    
+  
      # create Model
     alexnet = AlexNet(num_classes = NUM_CLASSES).to(device)
     # train in multiple GPUs
@@ -88,6 +90,7 @@ if __name__ == '__main__':
     print('AlexNet created')
     print(alexnet)
 
+    raise ValueError
     
     # create optimizer
     # optimizer = optim.Adam(params = alexnet.parameters(),
