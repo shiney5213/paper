@@ -20,6 +20,7 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 <summary><span style="font-size:150%">1. Data Loading and Preparation </span> </summary>
 <div markdown="1">
 
+<details>
 <summary><span style="font-size:150%">1) Dataset </span> </summary>
 <div markdown="1">
 
@@ -41,6 +42,7 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 </div>
 </details>
 
+<details>
 <summary><span style="font-size:150%">2) data preprocessing </span> </summary>
 <div markdown="1">
 
@@ -59,6 +61,7 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 </div>
 </details>
 
+<details>
 <summary><span style="font-size:150%">3) dataloader</span> </summary>
 <div markdown="1">
 
