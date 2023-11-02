@@ -13,19 +13,15 @@ from torchvision.transforms import Compose, RandomCrop, ToTensor, Normalize, Ran
 
 
 
-
-
-
 class StanfordDogsDataset(Dataset):
     """StanfordDogs datasets """
-    def __init__(self, image_path, X, y, is_show, objective = 'train' ):
+    def __init__(self, image_path, X, y, objective = 'train' ):
         self.image_path = image_path
         self.objective = objective
         self.X = X
         self.y = y
         self.IMAGE_TRAIN_DIM = 256
         self.IMAGE_TEST_DIM = 224
-        self.is_show = is_show
 
         
     def __len__(self):
@@ -52,12 +48,12 @@ class StanfordDogsDataset(Dataset):
         else:
             img_final = self.transform(img_centercrop)
         
-        if self.is_show:
-            self.show_img('Original Image', img)
-            self.show_img('resize_256', img_resize_256)
-            self.show_img('img_centercrop', img_centercrop)
-            self.show_img('PCA Color Augmentation', img_pca_aug) if self.objective == 'train' else  print(self.objective)
-            self.show_img('transform', img_final )
+        # if idx == 65 :
+        #     self.show_img('Original Image', img)
+        #     self.show_img('resize_256', img_resize_256)
+        #     self.show_img('img_centercrop', img_centercrop)
+        #     self.show_img('PCA Color Augmentation', img_pca_aug) if self.objective == 'train' else  print(self.objective)
+        #     self.show_img('transform', img_final )
             
         sample = {'image': img_final, 'label': label}
         return sample
@@ -73,7 +69,6 @@ class StanfordDogsDataset(Dataset):
         cv2.waitKey(0)
     
     def transform(self, img):
-        img = Image.fromarray(img)
         
         if self.objective == 'train':
             transform = transforms.Compose([
@@ -82,6 +77,16 @@ class StanfordDogsDataset(Dataset):
                 transforms.ToTensor(), 
                 transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)), # 이미지 정규화
             ])
+        
+        else:
+            transform = transforms.Compose([
+                transforms.ToTensor()
+            ])
+            
+            
+            
+        img = img if self.objective == 'train' else cv2.resize(img, (224, 224))
+        img = Image.fromarray(img)
             
         img = transform(img)
         img = np.array(img)
@@ -110,8 +115,6 @@ class StanfordDogsDataset(Dataset):
     def centercrop(self, img):
         
         img_centercrop = CenterCrop(height = self.IMAGE_TRAIN_DIM, width = self.IMAGE_TRAIN_DIM, p = 1)(image = img)['image']
-        # centercrop = CenterCrop(self.IMAGE_TRAIN_DIM)
-        # img_centercrop = centercrop(torch.Tensor(img_256)).numpy()
         
         return img_centercrop
     
@@ -119,7 +122,6 @@ class StanfordDogsDataset(Dataset):
         # PCA Augmentation carried out only 50 percent of time
         random = np.random.uniform(size = 1)
         if random < 0.5:
-            # img_pac_aug = PCA_color_aug(img, category = 'numpy').astype(np.float32)
             img_pac_aug = PCA_color_aug(img, category = 'numpy')
             return img_pac_aug
         else:
@@ -168,7 +170,7 @@ def PCA_color_aug(image, category = 'Tensor'):
 
 class StanfordDogs(Dataset):
     def __init__(self, transform1, transform2, normalise1, X, Y, image_path,  objective, is_show = False):
-    # def __init__(self, X, Y, image_path,  objective, is_show = False):
+    # def __init__(self, X, Y, image_path,  objectiv, is_show = False):
         
         self.X = X
         self.Y = Y
