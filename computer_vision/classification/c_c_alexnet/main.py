@@ -2,7 +2,6 @@ import os
 import random
 import numpy as np
 import cv2
-from skimage import io
 from PIL import Image
 
 import torch
@@ -12,7 +11,7 @@ import torch.nn.functional as F
 
 from dataset import get_dataset
 from datapreprocessing import StanfordDogsDataset
-
+from dataloader import loader
 
 
 from model import AlexNet
@@ -33,7 +32,6 @@ MOMENTUM = 0.9
 LR_DECAY = 0.0005
 LR_INIT = 0.01
 LR =0.0001
-# IMAGE_DIM = 227  # pixels
 IMAGE_DIM = 256
 NUM_CLASSES = 1000  # 1000 classes for imagenet 2012 dataset
 DEVICE_IDS = [0]  # GPUs to use
@@ -78,33 +76,15 @@ if __name__ == '__main__':
 
     # create Dataset 
     train_X, val_X, test_X, train_y, val_y, test_y = get_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
-    stanforddogs_dataset = StanfordDogsDataset(TRAIN_IMG_DIR,
-                                               train_X, 
-                                               train_y,
-                                               True,
-                                            )
-                                           
-
-    # Apply each of the above transforms on sample.
-    print('stanforddogs_dataset', len(stanforddogs_dataset))
-    
-    sample = stanforddogs_dataset[65]
-    print('sample', sample['image'].shape)
     
     
-    # for i, tsfrm in enumerate([scale, crop, composed1, composed2]):
-    #     transformed_sample = tsfrm(sample)
-    #     print(i,':', type(transformed_sample['image']), transformed_sample['image'].shape )
+    # create dataloader
     
-    # is_show = True
-    # # is_show = False
-    # idx = 5
-    # train_dataloader = loader(TRAIN_IMG_DIR, train_X, train_y, is_show, idx, batch_size = BATCH_SIZE, obj = 'train')
-    # print('train_dataloader', type(train_dataloader))
+    train_dataloader = loader(TRAIN_IMG_DIR, train_X, train_y, batch_size = BATCH_SIZE, obj = 'train')   # image: [ batch, 224, 224, 3]
+    valid_dataloader = loader(TRAIN_IMG_DIR, val_X, val_y, batch_size = BATCH_SIZE, obj = 'validation' ) # label : [batch, 5]
+    print('train_dataloader', len(train_dataloader))    # 128 * 6 = 768
+    print('valid_loader', len(valid_dataloader))        # 128 * 2 = 456
     
-    # for batch in train_dataloader:
-    #     img, label = batch
-    #     print(len(img))
         
     raise ValueError
   
