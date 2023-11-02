@@ -52,9 +52,18 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
     ② PCA Color Augmentation (데이터의 50%만 수행)
 
     |  |ordinary |resize|centercrop|pac_augmentation|transform|
-    |:---:|:---:|:---:|:---:|:---:|
+    |:---:|:---:|:---:|:---:|:---:|:---:|
     |img|<img src = "./images/1.dataset_ordinary_image.png" height = 200>|<img src = "./images/1.dataset_resize_256.png" height = 200>|<img src = "./images/1.dataset_centercrop.png" height = 200>|<img src = "./images/1.dataset_pca_aug.png" height = 200>|<img src = "./images/1.dataset_transform.png" height = 200>|
     |size|332*500|385*256| 256*256| 256*256| 224*224|
+
+</div>
+</details>
+
+<summary><span style="font-size:150%">3) dataloader</span> </summary>
+<div markdown="1">
+
+- dataloader.py
+- dataloader이용하여 batch size 만큼 data 분리
 
 </div>
 </details>
