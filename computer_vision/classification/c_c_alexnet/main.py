@@ -2,14 +2,24 @@ import os
 import random
 import numpy as np
 import cv2
+from skimage import io
+from PIL import Image
+
 import torch
 from tensorboardX import SummaryWriter
 import torch.optim as optim
 import torch.nn.functional as F
 
+from dataset import get_dataset
+from datapreprocessing import StanfordDogsDataset
+
+
+
 from model import AlexNet
-from dataloader import dataloader, loader
-from dataset import prepare_dataset, get_dataset
+# from dataloader import dataloader, loader
+from torch.utils.data import Dataset
+from torchvision.transforms import Compose
+from torchvision import transforms
 
 # from train import train_one_epoch
 
@@ -65,21 +75,36 @@ if __name__ == '__main__':
     print('TensorboardX summary writer created')
     
     
-   
-    
 
-    # create Dataset and Data Loader
-    classes, path_label_df, label_num_df  = prepare_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
-    train_X, val_X, test_X, train_y, val_y, test_y = get_dataset(path_label_df)
-    is_show = True
-    # is_show = False
-    idx = 5
-    train_dataloader = loader(TRAIN_IMG_DIR, train_X, train_y, is_show, idx, batch_size = BATCH_SIZE, obj = 'train')
-    print('train_dataloader', type(train_dataloader))
+    # create Dataset 
+    train_X, val_X, test_X, train_y, val_y, test_y = get_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR)
+    stanforddogs_dataset = StanfordDogsDataset(TRAIN_IMG_DIR,
+                                               train_X, 
+                                               train_y,
+                                               True,
+                                            )
+                                           
+
+    # Apply each of the above transforms on sample.
+    print('stanforddogs_dataset', len(stanforddogs_dataset))
     
-    for batch in train_dataloader:
-        img, label = batch
-        print(len(img))
+    sample = stanforddogs_dataset[65]
+    print('sample', sample['image'].shape)
+    
+    
+    # for i, tsfrm in enumerate([scale, crop, composed1, composed2]):
+    #     transformed_sample = tsfrm(sample)
+    #     print(i,':', type(transformed_sample['image']), transformed_sample['image'].shape )
+    
+    # is_show = True
+    # # is_show = False
+    # idx = 5
+    # train_dataloader = loader(TRAIN_IMG_DIR, train_X, train_y, is_show, idx, batch_size = BATCH_SIZE, obj = 'train')
+    # print('train_dataloader', type(train_dataloader))
+    
+    # for batch in train_dataloader:
+    #     img, label = batch
+    #     print(len(img))
         
     raise ValueError
   
