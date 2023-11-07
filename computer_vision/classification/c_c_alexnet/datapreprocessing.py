@@ -93,7 +93,8 @@ class StanfordDogsDataset(Dataset):
         # swap color axis because
         # numpy image: H x W x C
         # torch image: C x H x W
-        img = img.transpose((1, 2, 0))
+        # img = img.transpose((1, 2, 0))
+        
 
         return img
     
