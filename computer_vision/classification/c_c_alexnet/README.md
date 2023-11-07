@@ -80,8 +80,29 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 <details>
 <summary><span style="font-size:150%">2. AlexNet</span> </summary>
 <div markdown="1">
-- pretrained model down: [AlexNet: AlexNet Pre-trainid Model for PyTorch](https://www.kaggle.com/datasets/pytorch/alexnet)
-- main.py
+- model.py
+
+- tretrained weight를 사용하기 위해 torchvision.models에서 제공하는 alexnet 사용
+- pretrained model down : 
+[AlexNet](https://www.kaggle.com/datasets/pytorch/alexnet)
+
+- AlexNet Architecture
+- <img src = "./images/2.alexnet_architecture.png" >
+
+- train result
+
+| parameter |  |
+|:---:|:---:|
+| epochs| 30|
+| batch_size| 128|
+| optimizer| SGD|
+| lr_init| 0.01|
+| lr_decay| 30|
+| momentum| 0.9|
+| epochs| 30|
+|result|
+
+
 
 
 
