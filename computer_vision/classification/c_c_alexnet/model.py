@@ -5,7 +5,7 @@ import torch
 from torch import nn
 
 
-class AlexNet(nn.Module):
+class PaperAlexNet(nn.Module):
     """_summary_
     Neural network model consisting oflayers propsed by AlexNet paper
     """
