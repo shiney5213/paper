@@ -56,8 +56,7 @@ def loader(TRAIN_IMG_DIR, data_X, data_y, batch_size = 128,  obj = 'train'):
     dataloader = DataLoader(stanforddogs_dataset, batch_size , shuffle = True)
 
     
-    sample = stanforddogs_dataset[65]
-    print('sample', sample['image'].shape)
+    # sample = stanforddogs_dataset[65]
     
     return dataloader
 
