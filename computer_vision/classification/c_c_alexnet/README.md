@@ -123,8 +123,11 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 <details>
 <summary><span style="font-size:150%"> 4. Comment</span> </summary>
 <div markdown="1">
+
 - alexnet 모델의 파라미터 개수: 60 milion
+
 - 현재 training에 사용한 이미지 개수는 652개로 finetuning하기에는 매우 부족
+
 - 추후 paper처럼 1개의 이미지에서 2048장의 다른 이미지로 augmentation한다면 미세하게 성능 개선 기대
 
 
