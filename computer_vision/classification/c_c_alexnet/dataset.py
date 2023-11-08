@@ -42,13 +42,13 @@ def prepare_dataset(TRAIN_IMG_DIR, TRAIN_ANNO_DIR):
     length_annotations = len(os.listdir(TRAIN_ANNO_DIR))
     length_image_classes = len(os.listdir(TRAIN_IMG_DIR)) 
     
-    print('Length of annotations', length_annotations)
-    print('Length of image classes', length_image_classes)
+    # print('Length of annotations', length_annotations)
+    # print('Length of image classes', length_image_classes)
     
-    if length_annotations == length_image_classes:
-        print('Number of unique annotations matches the number of classes')
-    else:
-        print("Number of unique annotations doesn't the number of classes")
+    # if length_annotations == length_image_classes:
+    #     print('Number of unique annotations matches the number of classes')
+    # else:
+    #     print("Number of unique annotations doesn't the number of classes")
     
     
     label_num_df = create_label_num(TRAIN_IMG_DIR)
@@ -98,7 +98,6 @@ def select_path_label(TRAIN_IMG_DIR, classes ):
                 valid.append((path, label))
                 
     df = pd.DataFrame(valid, columns = ['Path', 'Label'])
-    print('shape of dataframe:', df.shape)
     return df
 
 
