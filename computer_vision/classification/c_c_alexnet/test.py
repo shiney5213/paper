@@ -112,24 +112,22 @@ if __name__ == '__main__':
     optimizer.load_state_dict(checkpoint['optimizer'])
     
     
-    
-    historyplot(checkpoint['losses_df'])
-    
+       
     
     
     # test
-    # test_preds = []
-    # with torch.no_grad():
-    #     alexnet.eval()
+    test_preds = []
+    with torch.no_grad():
+        alexnet.eval()
         
-    #     for i, batch in enumerate(test_dataloader):
-    #         img, label = batch
-    #         img, label = img.to(device, dtype = torch.float), label.to(device, dtype = torch.long)
-    #         output = alexnet(img)
+        for i, batch in enumerate(test_dataloader):
+            img, label = batch
+            img, label = img.to(device, dtype = torch.float), label.to(device, dtype = torch.long)
+            output = alexnet(img)
             
-    #         output = output.detach().cpu().numpy()
-    #         test_preds.extend(np.argmax(output, 1))
+            output = output.detach().cpu().numpy()
+            test_preds.extend(np.argmax(output, 1))
             
-    #     test_acc = acculate(test_y, test_preds)
+        test_acc = acculate(test_y, test_preds)
         
-    #     print('Accuracy on test dataset : {:.2%}'.format(test_acc))
+        print('Accuracy on test dataset : {:.2%}'.format(test_acc))
