@@ -80,6 +80,7 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 <details>
 <summary><span style="font-size:150%">2. AlexNet</span> </summary>
 <div markdown="1">
+
 - model.py
 
 - tretrained weight를 사용하기 위해 torchvision.models에서 제공하는 alexnet 사용
@@ -107,11 +108,11 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 | batch_size| 128| 128 | 128| 128 |
 | optimizer| SGD| SGD |Adam| Adam |
 | lr_init| 0.01| 0.01 |0.01| 0.01 |
-| lr_decay| -| 10epoch마다 *0.1|-| 10epoch마다 *0.1|
-| momentum| 0.9| 0.9 | -| -|
-|plot| <img src = "./images/3.result_1.png" width = 200>|<img src = "./images/3.result_2.png" width = 200>|<img src = "./images/3.result_3.png" width = 200>|<img src = "./images/3.result_4.png" width = 200>|
-|tset acc | 22.41% | 21.72% | 18.97% |22.07%|
-| comment | val_loss가 줄어들지 않음. overfitting | epoch=0 일대 val_loss가 제일 적음. 학습 전혀 안됨|
+| lr_decay| -| 10epoch마다 *0.1| - | 10epoch마다 *0.1 |
+| momentum | 0.9| 0.9 | - | - |
+| plot |   <img src = "./images/3.result_1.png" width = 200> |  <img src = "./images/3.result_2.png" width = 200> |  <img src = "./images/3.result_3.png" width = 200> |  <img src = "./images/3.result_4.png" width = 200> |
+|tset acc | 22.41% | 21.72% | 18.97% | 22.07%|
+| comment |  overfitting | 초기 val_loss가 제일 작음| vla_loss값이 줄어들이 않음|  val_loss가 미세하게 줄어들고 있음 |
 
 
 
