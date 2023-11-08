@@ -89,27 +89,50 @@ Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399
 - AlexNet Architecture
 - <img src = "./images/2.alexnet_architecture.png" >
 
-- train result
-
-| parameter |  |
-|:---:|:---:|
-| epochs| 30|
-| batch_size| 128|
-| optimizer| SGD|
-| lr_init| 0.01|
-| lr_decay| 30|
-| momentum| 0.9|
-| epochs| 30|
-|result|
+</div>
+</details>
 
 
+<details>
+<summary><span style="font-size:150%">3. Train Retults </span> </summary>
+<div markdown="1">
+
+- main.py
+
+- test.py
+
+| parameter | 1st Model | 2nd Model | 3th Model | 4th Model |
+|:---:|:---:|:---:|:---:|:---:|
+| epochs| 30| 30 |30| 30 |
+| batch_size| 128| 128 | 128| 128 |
+| optimizer| SGD| SGD |Adam| Adam |
+| lr_init| 0.01| 0.01 |0.01| 0.01 |
+| lr_decay| -| 10epoch마다 *0.1|-| 10epoch마다 *0.1|
+| momentum| 0.9| 0.9 | -| -|
+|plot| <img src = "./images/3.result_1.png" width = 200>|<img src = "./images/3.result_2.png" width = 200>|<img src = "./images/3.result_3.png" width = 200>|<img src = "./images/3.result_4.png" width = 200>|
+|tset acc | 22.41% | 21.72% | 18.97% |22.07%|
+| comment | val_loss가 줄어들지 않음. overfitting | epoch=0 일대 val_loss가 제일 적음. 학습 전혀 안됨|
 
 
 
+</div>
+</details>
 
+
+<details>
+<summary><span style="font-size:150%"> 4. Comment</span> </summary>
+<div markdown="1">
+- alexnet 모델의 파라미터 개수: 60 milion
+- 현재 training에 사용한 이미지 개수는 652개로 finetuning하기에는 매우 부족
+- 추후 paper처럼 1개의 이미지에서 2048장의 다른 이미지로 augmentation한다면 미세하게 성능 개선 기대
+
+
+
+</div>
+</details>
 
 ---
-
+[ Reference]
 
 
 - [Stanford Dogs AlexNet Paper Implementation Pytorch](https://www.kaggle.com/code/virajbagal/stanford-dogs-alexnet-paper-implementation-pytorch)
