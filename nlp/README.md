@@ -17,4 +17,10 @@ NLP task
 - Coref(Entity 찾기, Blog)
 - NER(Entity 인식) 
 - SST-5(문장 분류)
-- 
+  
+
+
+---
+
+## Word Embedding
+* [Word2Vec]{:.heading.flip-title} --- Efficient Estimation of Word Representations in Vector Space (2013)
